@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "3"
+  creationTimestamp: "2024-01-11T12:23:31Z"
+  generation: 3
+  labels:
+    app: as0dev-reg
+  name: as0dev-reg
+  namespace: default
+  resourceVersion: "19966"
+  uid: 4d6a1088-3799-4da8-8db3-77547db415fc
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: as0dev-reg
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: as0dev-reg
+    spec:
+      containers:
+      - image: as0dev.azurecr.io/kodekloudappcs:v1
+        imagePullPolicy: IfNotPresent
+        name: kodekloudappcs
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2024-01-11T12:23:39Z"
+    lastUpdateTime: "2024-01-11T12:23:39Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2024-01-11T12:23:31Z"
+    lastUpdateTime: "2024-01-11T12:37:08Z"
+    message: ReplicaSet "as0dev-reg-7f76dc8988" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 3
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1
