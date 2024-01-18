@@ -1,12 +1,14 @@
-FROM centos:7
-RUN yum update -y           # make sure to use -y, as Dockerfile in non-interactive
-RUN yum install httpd -y
+# Use the official Alpine Linux as the base image
+FROM alpine:latest
 
-# copy the html page
-COPY ./index.html /var/www/html/index.html
+# Install Nginx
+RUN apk update && apk add nginx
 
-# app port (can expose more than 1 port with EXPOSE instruction)
-EXPOSE 80       
+# Copy your HTML files to the default Nginx web root directory
+COPY ./index.html /usr/share/nginx/html/index.html
 
-# CMD should be the last instruction. If > 1 CMD instruction: Docker consider the last one.
-CMD ["httpd", "-D", "FOREGROUND"]
+# Expose port 80 for web traffic
+EXPOSE 80
+
+# Start Nginx in the foreground when the container starts
+CMD ["nginx", "-g", "daemon off;"]
